@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.orange-btn {
+  @apply bg-[#F3651E]/70 border-2 border-[#F3651E] hover:bg-[#F3651E] text-white font-semibold p-2 mt-2;
+}
+
+.lg-nav-btn {
+  @apply w-10/12 items-center border-4 border-[#005E5B] my-3 text-center font-extrabold text-xl text-[#F3651E];
+}
