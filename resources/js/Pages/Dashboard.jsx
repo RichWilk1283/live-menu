@@ -2,8 +2,12 @@ import React from 'react';
 import CategoriesBoard from '../components/CategoriesBoard';
 import { Link, Head } from '@inertiajs/react';
 import Layout from '../components/Layout';
+import { useUserStore } from '../store/UserStore';
 
 export default function Dashboard({ userName, categoriesSummary }) {
+
+  const setLoggedInUser = useUserStore((state) => state.setLoggedInUser);
+  setLoggedInUser(userName);
 
   return (
     <>
@@ -11,7 +15,7 @@ export default function Dashboard({ userName, categoriesSummary }) {
         <title>Dashboard</title>
         <meta name="description" content="This is the dashboard page." />
       </Head>
-      <Layout userName={userName}>
+      <Layout>
         <div className="bg-[#F5F6F8]">
           <div className="flex flex-col items-center">
             <Link

@@ -6,7 +6,7 @@ export default function Layout({ children, userName }) {
   return (
     <main>
       <header>
-        <TitleBar userName={userName} />
+        <TitleBar />
       </header>
       <article>
         {children}

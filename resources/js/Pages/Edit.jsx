@@ -4,16 +4,13 @@ import { Link, Head } from '@inertiajs/react';
 import Layout from '../components/Layout';
 
 export default function Edit({ menuItem, categories }) {
-
-  const userName = "TEST"
-
   return (
     <>
       <Head>
         <title>Edit items</title>
         <meta name="description" content="This is the page to edit menu items." />
       </Head>
-      <Layout userName={userName}>
+      <Layout>
         <div className="flex flex-col items-center bg-[#F5F6F8]">
           <EditMenuItemForm menuItem={menuItem} categories={categories} />
           <Link

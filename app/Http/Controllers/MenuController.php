@@ -6,6 +6,7 @@ use App\Models\MenuItem;
 use Illuminate\Http\Request;
 use App\Http\Requests\MenuItemRequest;
 use App\Models\Category;
+use App\Services\HelperServices;
 use Inertia\Inertia;
 
 class MenuController extends Controller
@@ -39,7 +40,7 @@ class MenuController extends Controller
   }
 
 
-  public function showItemsByCategory(Request $request, string $category)
+  public function showItemsInCategory(Request $request, string $category)
   {
     $categoryItems = MenuItem::with('categories')->get()->filter(function ($menuItem) use ($category) {
       return $menuItem->categories->contains('name', $category);
@@ -59,16 +60,12 @@ class MenuController extends Controller
 
 
   public function editItem(MenuItemRequest $request)
-  {    
-    $dbId = $request->dbid; //id for the db item that needs updating
-
+  {
+    $existingDbId = $request->dbid; //id for the db item that needs updating    
     $validatedData = $request->validated(); //new form data to patch into db
+    $validatedCategoryId = Category::where('name', $validatedData['category'])->first()->id; //category object from db that matches the new form data category
 
-    $matchingCategory = Category::where('name', $validatedData['category'])->first(); //category object from db that matches the new form data category
-    $validatedCategoryId = $matchingCategory->id;  //the id in db for the above.
-
-    $menuItem = MenuItem::where('id', $dbId)->first();
-
+    $menuItem = MenuItem::where('id', $existingDbId)->first();
     $menuItem->title = $validatedData['title'];
     $menuItem->description = $validatedData['description'];
     $menuItem->price = $validatedData['price'];
@@ -90,5 +87,15 @@ class MenuController extends Controller
     $menuItem->delete();
 
     return to_route('dashboard.show');
+  }
+
+  public function showMainMenu(Request $request, HelperServices $helperServices)
+  {
+    $categories = Category::all()->values();
+    $allMenuItems = MenuItem::with('categories')->get()->values();
+
+    $menuItemsByCategory = $helperServices->generateMainMenuInfo($categories, $allMenuItems);
+
+    return Inertia::render('MainMenu', ['menuItemsByCategory' => $menuItemsByCategory]);
   }
 }

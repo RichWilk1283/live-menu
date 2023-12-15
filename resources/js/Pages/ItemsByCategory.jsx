@@ -35,16 +35,13 @@ function MenuItemTile({ item }) {
 }
 
 export default function ItemsByCategory({ categoryItems, category }) {
-
-  const userName = "TEST";
-
   return (
     <>
       <Head>
         <title>Items by Category</title>
         <meta name="description" content="This is the page to view items by category." />
       </Head>
-      <Layout userName={userName}>
+      <Layout>
         <div className="flex flex-col items-center">
           <h1 className="font-semibold text-6xl text-[#946E83]">{category}</h1>
           <div className="flex flex-col w-11/12 items-center mx-auto gap-2">

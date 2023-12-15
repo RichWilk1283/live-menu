@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'show'])->name('home');
 Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->middleware('auth')->name('dashboard.show');
-Route::get('/mainmenu', [DashboardController::class, 'showMainMenu'])->name('mainmenu.show');
+Route::get('/mainmenu', [MenuController::class, 'showMainMenu'])->name('mainmenu.show');
 Route::get('/createmenuitem', [MenuController::class, 'showCreate'])->middleware('auth');
-Route::get('/categoryitems/{category}', [MenuController::class, 'showItemsByCategory'])->middleware('auth')->name('categoryitems.show');
+Route::get('/categoryitems/{category}', [MenuController::class, 'showItemsInCategory'])->middleware('auth')->name('categoryitems.show');
 Route::get('/menuitem/{id}', [MenuController::class, 'showEditItem'])->middleware('auth');
 
 //USER ACTIONS

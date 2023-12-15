@@ -17,8 +17,10 @@ class UserController extends Controller
     $user = User::create([
       'name' => $validatedData['name'],
       'email' => $validatedData['email'],
-      'password' => $validatedData['password']
+      'password' => bcrypt($validatedData['password']),
     ]);
+
+    Auth::login($user);
 
     return redirect('/dashboard');
   }

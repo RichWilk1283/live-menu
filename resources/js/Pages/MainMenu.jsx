@@ -1,3 +1,4 @@
+import Echo from 'laravel-echo';
 import { Head } from '@inertiajs/react';
 import React from 'react';
 import { XMarkIcon, CheckIcon } from "@heroicons/react/24/outline";
@@ -44,6 +45,11 @@ function MenuSection({ category, items }) {
 }
 
 export default function MainMenu({ menuItemsByCategory }) {
+
+  // Echo.private('App.Models.MenuItem.7').listen('.MenuItemUpdated', (e) => {
+  //   console.log("TEST", e);
+  // });
+
   return (
     <>
       <Head>
