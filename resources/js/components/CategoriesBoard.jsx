@@ -18,7 +18,7 @@ function CategoryTile({ summary }) {
 
 export default function CategoriesBoard({ categoriesSummary }) {
   return (
-    <div className="flex flex-col w-11/12 items-center mx-auto gap-2">
+    <div className="flex flex-col w-11/12 md:w-1/2 items-center mx-auto gap-2">
       {categoriesSummary.map((summary, index) => (
         <CategoryTile key={index} summary={summary} />
       ))}

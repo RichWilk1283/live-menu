@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\Models\Category;
-use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -21,6 +22,14 @@ class MenuItem extends Model
 
     public function broadcastOn($event)
     {
-      return [$this, $this->categories];
+      return ['mainmenu'];
+    }
+
+    public function broadcastWith($event)
+    {
+        return [
+            'menuItem' => $this,
+            'categories' => $this->categories->toArray(),
+        ];
     }
 }

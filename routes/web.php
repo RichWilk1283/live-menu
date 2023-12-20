@@ -37,3 +37,4 @@ Route::post('/logout', [UserController::class, 'logout']);
 Route::post('/createitem', [MenuController::class, 'createItem'])->middleware('auth');
 Route::patch('/editmenuitem', [MenuController::class, 'editItem'])->middleware('auth');
 Route::delete('/deletemenuitem/{id}', [MenuController::class, 'deleteItem'])->middleware('auth');
+Route::get('/updateMainMenu', [MenuController::class, 'updateMainMenu']);

@@ -1,7 +1,7 @@
-import Echo from 'laravel-echo';
-import { Head } from '@inertiajs/react';
-import React from 'react';
+import { Head, router } from '@inertiajs/react';
+import React, { useEffect, useState } from 'react';
 import { XMarkIcon, CheckIcon } from "@heroicons/react/24/outline";
+import Pusher from 'pusher-js';
 
 function MenuItem({ item }) {
   return (
@@ -46,9 +46,33 @@ function MenuSection({ category, items }) {
 
 export default function MainMenu({ menuItemsByCategory }) {
 
-  // Echo.private('App.Models.MenuItem.7').listen('.MenuItemUpdated', (e) => {
-  //   console.log("TEST", e);
-  // });
+  const [mainMenuItems, setMainMenuItems] = useState(menuItemsByCategory);
+
+  useEffect(() => {
+    const pusher = new Pusher(import.meta.env.VITE_PUSHER_APP_KEY, {
+      cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'mt1'
+    });
+
+    const channel = pusher.subscribe('mainmenu');
+
+    channel.bind('MenuItemUpdated', (data) => {
+      router.get('/mainmenu');
+    });
+
+    channel.bind('MenuItemCreated', (data) => {
+      router.get('/mainmenu');
+    });
+
+    channel.bind('MenuItemDeleted', (data) => {
+      router.get('/mainmenu');
+    });
+
+    return () => {
+      channel.unbind_all();
+      channel.unsubscribe();
+      pusher.disconnect();
+    };
+  }, []);
 
   return (
     <>
@@ -58,7 +82,7 @@ export default function MainMenu({ menuItemsByCategory }) {
       </Head>
       <div className="flex flex-col items-center">
         <h1 className="text-5xl py-3">Restuarant Menu</h1>
-        {menuItemsByCategory.map((categoryItems, index) => (
+        {mainMenuItems.map((categoryItems, index) => (
           <MenuSection key={index} category={categoryItems.category} items={categoryItems.items} />
         ))}
       </div>

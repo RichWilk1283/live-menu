@@ -98,4 +98,14 @@ class MenuController extends Controller
 
     return Inertia::render('MainMenu', ['menuItemsByCategory' => $menuItemsByCategory]);
   }
+
+  public function updateMainMenu(Request $request, HelperServices $helperServices)
+  {
+    $categories = Category::all()->values();
+    $allMenuItems = MenuItem::with('categories')->get()->values();
+
+    $menuItemsByCategory = $helperServices->generateMainMenuInfo($categories, $allMenuItems);
+
+    return $menuItemsByCategory;
+  }
 }
