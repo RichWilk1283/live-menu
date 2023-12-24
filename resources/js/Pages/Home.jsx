@@ -18,9 +18,10 @@ export default function Home() {
         <meta name="description" content="This is the home page where you login or register for an account." />
       </Head>
       <div className="flex flex-col">
-        <div className="flex w-ful bg-[url('https://th.bing.com/th/id/OIG.EQR13_vh6wjB2e_f1Kfn?pid=ImgGn')] bg-center bg-cover h-52">
+        <div className="flex w-ful bg-[url('https://th.bing.com/th/id/OIG.SNQbolJs.pvCwpLrAabs?w=1024&h=1024&rs=1&pid=ImgDetMain')] bg-contain h-52 justify-center">
+          <h1 className="text-white text-6xl font-extrabold self-center">Live! Menu</h1>
         </div>
-        <div className="flex w-full justify-center my-3 md:w-1/2 mx-auto">
+        <div className="flex w-full justify-center my-3 md:w-1/3 md:pt-4 mx-auto">
           {isLoggingIn &&
             <div className="border-4 border-[#005E5B] w-11/12">
               <h3 className="text-xl ml-3 -translate-y-4 bg-[#F5F6F8] w-16 text-center text-[#F3651E]">Login:</h3>
@@ -43,3 +44,5 @@ export default function Home() {
     </>
   )
 }
+
+//og image https://th.bing.com/th/id/OIG.EQR13_vh6wjB2e_f1Kfn?pid=ImgGn

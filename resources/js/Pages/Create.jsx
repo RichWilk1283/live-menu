@@ -11,7 +11,7 @@ export default function Create({ categories }) {
         <meta name="description" content="This is the page where you create menu items." />
       </Head>
       <Layout>
-        <div className="bg-[#F5F6F8]">
+        <div>
           <div className="flex flex-col items-center">
             <CreateMenuItemForm categories={categories} />
             <Link

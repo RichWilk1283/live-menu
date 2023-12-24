@@ -23,7 +23,7 @@ export default function EditMenuItemForm({ categories, menuItem }) {
   }
 
   return (
-    <div className="w-11/12 flex flex-col items-center mt-3 border-4 border-[#005E5B]">
+    <div className="w-11/12 md:w-1/3 flex flex-col items-center mt-3 border-4 border-[#005E5B]">
       <h3 className="text-xl ml-3 -translate-y-4 bg-[#F5F6F8] w-44 text-center text-[#F3651E]">Edit Menu Item:</h3>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3 items-center mx-auto w-11/12">
         <FormGroup

@@ -17,7 +17,7 @@ export default function Edit({ menuItem, categories }) {
             href={`/deletemenuitem/${menuItem.id}`}
             method="delete"
             as="button"
-            className="w-10/12 items-center border-4 border-red-500/50 my-3 text-center font-extrabold text-xl text-red-500 hover:bg-red-800 hover:text-black">
+            className="w-10/12 md:w-1/3 items-center border-4 border-red-500/50 my-3 text-center font-extrabold text-xl text-red-500 hover:bg-red-800 hover:text-black">
             DELETE
           </Link>
           <Link

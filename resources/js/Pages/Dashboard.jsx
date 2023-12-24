@@ -21,11 +21,16 @@ export default function Dashboard({ userName, categoriesSummary }) {
             <Link
               href={"/createmenuitem"}
               as="button"
-              className="w-10/12 md:w-1/2 bg-[#946E83] text-white p-3 m-3 text-xl font-semibold">
+              className="w-10/12 md:w-1/3 bg-[#946E83] text-white p-3 m-3 text-xl font-semibold">
               Create Menu Item
             </Link>
             <CategoriesBoard categoriesSummary={categoriesSummary} />
-            <Link href={"/mainmenu"} as="button" className="lg-nav-btn md:w-1/2">View Menu</Link>
+            <Link
+              href={"/mainmenu"}
+              as="button"
+              className="lg-nav-btn md:w-1/2">
+              View Menu
+            </Link>
           </div>
         </div>
       </Layout>

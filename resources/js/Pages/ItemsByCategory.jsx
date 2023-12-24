@@ -44,7 +44,7 @@ export default function ItemsByCategory({ categoryItems, category }) {
       <Layout>
         <div className="flex flex-col items-center">
           <h1 className="font-semibold text-6xl text-[#946E83]">{category}</h1>
-          <div className="flex flex-col w-11/12 items-center mx-auto gap-2">
+          <div className="flex flex-col w-11/12 md:w-1/3 items-center mx-auto gap-2">
             {categoryItems.map(item => (
               <MenuItemTile key={item.id} item={item} />
             ))}

@@ -15,7 +15,14 @@ class MenuController extends Controller
   {
     $categories = Category::all();
 
-    return Inertia::render('Create', ['categories' => $categories]);
+    if ($categories === null || empty($categories))
+    {
+      return to_route('dashboard.show');
+    }
+    else
+    {
+      return Inertia::render('Create', ['categories' => $categories]);
+    }
   }
 
 
@@ -25,6 +32,11 @@ class MenuController extends Controller
 
     $matchingCategory = Category::where('name', $validatedData['category'])->first();
     $validatedCategoryId = $matchingCategory->id;
+
+    if ($matchingCategory === null || $validatedCategoryId === null)
+    {
+      return to_route('dashboard.show');
+    }    
 
     $menuItem = MenuItem::create([
       'title' => $validatedData['title'],
@@ -46,7 +58,14 @@ class MenuController extends Controller
       return $menuItem->categories->contains('name', $category);
     })->values();
 
-    return Inertia::render('ItemsByCategory', ['categoryItems' => $categoryItems, 'category' => $category]);
+    if ($categoryItems === null || $categoryItems->isEmpty())
+    {
+      return to_route('dashboard.show');
+    }
+    else
+    {
+      return Inertia::render('ItemsByCategory', ['categoryItems' => $categoryItems, 'category' => $category]);
+    }
   }
 
 
@@ -55,15 +74,20 @@ class MenuController extends Controller
     $menuItem = MenuItem::with('categories')->where('id', $id)->first();
     $categories = Category::all();
 
+    if ($menuItem === null || empty($menuItem) || $categories === null || empty($categories))
+    {
+      return to_route('dashboard.show');
+    }
+
     return Inertia::render('Edit', ['menuItem' => $menuItem, 'categories' => $categories]);
   }
 
 
   public function editItem(MenuItemRequest $request)
   {
-    $existingDbId = $request->dbid; //id for the db item that needs updating    
-    $validatedData = $request->validated(); //new form data to patch into db
-    $validatedCategoryId = Category::where('name', $validatedData['category'])->first()->id; //category object from db that matches the new form data category
+    $existingDbId = $request->dbid;
+    $validatedData = $request->validated();
+    $validatedCategoryId = Category::where('name', $validatedData['category'])->first()->id;
 
     $menuItem = MenuItem::where('id', $existingDbId)->first();
     $menuItem->title = $validatedData['title'];
@@ -97,15 +121,5 @@ class MenuController extends Controller
     $menuItemsByCategory = $helperServices->generateMainMenuInfo($categories, $allMenuItems);
 
     return Inertia::render('MainMenu', ['menuItemsByCategory' => $menuItemsByCategory]);
-  }
-
-  public function updateMainMenu(Request $request, HelperServices $helperServices)
-  {
-    $categories = Category::all()->values();
-    $allMenuItems = MenuItem::with('categories')->get()->values();
-
-    $menuItemsByCategory = $helperServices->generateMainMenuInfo($categories, $allMenuItems);
-
-    return $menuItemsByCategory;
   }
 }

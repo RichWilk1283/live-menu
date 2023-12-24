@@ -10,7 +10,7 @@ export default function Logout() {
         method="post"
         as="button"
         type="button"
-        className="text-white font-semibold flex p-1 px-2 m-1 bg-[#005E5B] rounded-md"
+        className="text-white font-semibold flex p-1 px-2 m-1 md:mr-8 bg-[#005E5B] rounded-md"
       >
         Logout
         <ArrowRightOnRectangleIcon
